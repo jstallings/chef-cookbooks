@@ -57,6 +57,3 @@ else
   end
 
 end
-
-Gem.clear_paths
-require "mysql"
