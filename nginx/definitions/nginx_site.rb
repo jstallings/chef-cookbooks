@@ -20,6 +20,15 @@
 
 define :nginx_site, :enable => true do
   if params[:enable]
+    
+    template "#{node[:nginx][:dir]}/sites-available/#{params[:name]}" do
+      source params[:template]
+      owner "root"
+      group "root"
+      mode 0644
+      notifies :restart, resources(:service => "nginx")
+    end
+    
     execute "nxensite #{params[:name]}" do
       command "/usr/sbin/nxensite #{params[:name]}"
       notifies :restart, resources(:service => "nginx")
